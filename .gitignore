@@ -139,3 +139,15 @@ dmypy.json
 # nbdime Stuff
 .gitattributes
 
+
+# Kaggle competition data and tokens (D6)
+data/*.csv
+data/*.zip
+*token*
+
+# M2 recipe facts - side test, kept out of git (D35)
+my_notes/m2_recipe_facts_v*.md
+
+# ignore folders
+my_notes/archive/
+my_notes/handover/

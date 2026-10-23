@@ -1,152 +1,38 @@
-# Machine Learning Project Template
+# Faster tests, greener cars – Mercedes-Benz Greener Manufacturing
 
-A starting point for your team machine learning project. The repository ships an example notebook that trains a simple model with minimal cleaning and feature selection. Use it as scaffolding, then build your own project on top of it.
+**Can we predict how long each Mercedes-Benz car stays on the end-of-line test bench?**
+ML project (neuefische AI PM bootcamp, October 2026) on the public Kaggle data set *Mercedes-Benz Greener Manufacturing* (2017).
 
-The example uses the [coffee quality dataset](https://github.com/jldbc/coffee-quality-database).
+## Hypothesis (H2)
+*Does the same car configuration always need the same test time?*
+**Answer: no.** Cars with exactly the same configuration (all 376 columns identical) still differ by about 8 seconds. Using the configuration as indicator, at most about 60 % of the differences in test time between cars can be predicted – the rest comes from the test itself.
 
-## Learning Objectives
-
-By the end of this repository, you should be able to:
-
-- Work on a data science project as a team, sharing the work across the data science lifecycle.
-- Frame a business problem as a machine learning task and choose a performance metric that fits the value you want to create.
-- Build a baseline model, then iterate with error analysis and at least three algorithms (including cross validation and hyperparameter tuning).
-- Communicate your findings and recommendations to a non-technical audience in a short presentation.
-
-## Learning Path
-
-Your project follows the data science lifecycle:
-
-```mermaid
-flowchart LR
-    A[Data] --> B[EDA]
-    B --> C[Baseline model]
-    C --> D[Error analysis and iteration]
-    D --> E[Stakeholder presentation]
-```
-
-Start with the assignment, set up your board, then use the example notebook as a reference:
-
-| File / Folder | Description |
+## Key results
+| | Result |
 |---|---|
-| [**Assignment**](01_assignment.md) | The project brief: timeline, milestones, project options, deliverables, and things to think about. |
-| [**Kanban Board**](02_kanban_board.md) | Step-by-step setup of a GitHub project board to plan and track your work. |
-| [**EDA and Modeling**](03_eda-and-modeling.ipynb) | Worked example of selecting features, doing minimal cleaning, and training a simple model. |
+| Data | 4,209 tested cars, 376 anonymised columns (8 text, 368 yes/no), test time 72–265 s |
+| Limit | about 60 % of the differences in test time can be explained (from 515 cars in 217 groups of identical cars) |
+| One column, X0 | alone explains 57.5 % of the differences |
+| Three algorithms | Ridge 58.7 %, Random Forest 58.9 %, XGBoost 59.3 % (5-fold cross-validation, 4,208 cars) – equal |
+| Final model | Ridge with X0 only: typical miss 12.4 s → 8.0 s (about 4.5 s better per car); 91 of 100 cars within 10 s |
+| Kaggle check | 54.1 % on 4,209 hidden cars = 97 % of the competition winner's score (55.6 %) |
+| Long tests | cannot be predicted from the configuration – future work: record test-run data |
 
-### Additional Folders and Files
-
-| File / Folder | Description |
+## Repository contents
+| File / folder | Content |
 |---|---|
-| [**Data**](data/) | Where your datasets go. |
-| [**Models**](models/) | Where trained models are saved. |
-| [**Assets**](assets/) | Screenshots used in the Kanban board guide. |
-| [**pyproject.toml**](pyproject.toml) | Project configuration and dependencies. |
-| [**uv.lock**](uv.lock) | Dependency lock file. |
+| [`04_mercedes_eda_and_modeling.ipynb`](04_mercedes_eda_and_modeling.ipynb) | The project notebook: EDA, H2 limit, baseline, three algorithms, error analysis, Kaggle submission, long tests (Steps 1–29) |
+| [`my_notes/machine_learning_presentation_stakeholder_deck_v4_final.pptx`](my_notes/) | Presentation for a non-technical audience (12 main slides + explanation slides) |
+| [`my_notes/machine_learning_presentation_deck_v8.pptx`](my_notes/) | Detailed engineering deck with references to the project's internal decision log |
+| `01_assignment.md`, `02_kanban_board.md`, `03_eda-and-modeling.ipynb`, `assets/` | Course material from the neuefische ML project template |
+| `pyproject.toml`, `uv.lock` | Python environment |
 
 ## Setup
-
-> [!NOTE]
-> Throughout these steps, text in angle brackets like `<repo-name>` is a **placeholder**. Replace it, including the `< >` brackets, with your own value. For example, `cd <repo-name>` becomes `cd my-ml-project`.
-
-### 1. Create the Repository from the Template
-
-Click **Use this template** on GitHub.
-
-When creating the repository:
-
-- Set yourself as the **Owner**
-- Choose a repository name
-- Disable **Include all branches**
-- Click **Create repository**
-
-> [!IMPORTANT]
-> If you are working in pairs or groups, only **one person** should complete this step.
-
----
-
-### 2. Add Collaborators (Pairs/Groups Only)
-
-If working with teammates:
-
-1. Open the repository on GitHub
-2. Go to **Settings → Collaborators**
-3. Add your teammates as collaborators
-4. Share the repository link with your team
-
-Teammates should accept the invitation before continuing.
-
----
-
-### 3. Clone the Repository
-
-Copy the SSH URL from the **Code** button on GitHub, then run:
-
 ```bash
-git clone <copied-ssh-url>
-```
-
-The copied SSH URL will look like `git@github.com:<your-username>/<repo-name>.git`.
-
----
-
-### 4. Move into the Project Folder and Install Dependencies
-
-This installs all dependencies and creates a virtual environment in (`.venv/`).
-
-```bash
-cd <repo-name>
 uv sync
 ```
-
-> [!TIP]
-> This is your own project, so you will add libraries as you go. Install a new package with `uv add <package>` (for example `uv add xgboost`). It updates `pyproject.toml` and `uv.lock` for the whole team.
+The Kaggle data is not part of this repository. Download it from the competition page
+([kaggle.com/c/mercedes-benz-greener-manufacturing](https://www.kaggle.com/c/mercedes-benz-greener-manufacturing)) and put `train.csv` and `test.csv` into `data/`. Then open `04_mercedes_eda_and_modeling.ipynb` in VS Code with the `.venv` kernel and run all cells.
 
 ---
-
-### 5. Open the Notebook
-
-> [!NOTE]
-> Make sure you open VS Code from the project root so it automatically detects the environment created by `uv sync`.
-
-Launch VS Code in the project root folder:
-
-```bash
-code .
-```
-
-Then open `03_eda-and-modeling.ipynb` and select the Python environment created by `uv sync` as the kernel.
-
-## Handling Merge Conflicts in Notebooks
-
-When working in a team, `.ipynb` files can cause messy merge conflicts because they are JSON based. The `nbdime` tool makes this easier, and `uvx` runs it without adding it to your project dependencies.
-
-Enable the git integration once:
-
-```bash
-uvx nbdime config-git --enable
-```
-
-When a conflict happens, open the merge tool:
-
-```bash
-uvx nbdime mergetool
-```
-
-A web interface opens showing both notebook versions side by side. Choose what to keep, save, and close the tool, then:
-
-```bash
-git add your_notebook.ipynb
-git commit -m "Resolve notebook conflict"
-```
-
-> [!TIP]
-> When working with notebooks, it's a good idea to clear outputs before committing to reduce the chances of conflicts. You can do this in VS Code with the command palette: `Notebook: Clear All Outputs`.
-
-## References & Further Reading
-
-- [**scikit-learn Documentation**](https://scikit-learn.org/stable/): the library used for modelling, with user guides and examples.
-- [**Choosing the Right Estimator**](https://scikit-learn.org/stable/machine_learning_map.html): a visual map for picking a model based on your problem and data.
-- [**PEP 8 Style Guide for Python Code**](https://peps.python.org/pep-0008/): the style your notebook should follow.
-- [**Jupyter Notebooks in VS Code**](https://code.visualstudio.com/docs/datascience/jupyter-notebooks): how to run notebooks and pick a kernel in VS Code.
-- [**uv Documentation**](https://docs.astral.sh/uv/): the package manager that handles Python and dependencies for this repo.
-- [**Zindi Competitions**](https://zindi.africa/competitions): real-world challenges, several of which are listed as project options in the assignment.
+© 2026 Mohammad Bajbouj. All rights reserved. Decisions and expert views by Mohammad Bajbouj; text and code drafted with Claude by Anthropic (Claude Cowork, Claude Code) – no ownership of AI-generated text or code claimed. Practice project, neuefische AI PM bootcamp. Course material from neuefische and Kaggle data (Mercedes-Benz) are not covered by this copyright notice.
