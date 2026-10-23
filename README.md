@@ -22,8 +22,8 @@ ML project (neuefische AI PM bootcamp, October 2026) on the public Kaggle data s
 | File / folder | Content |
 |---|---|
 | [`04_mercedes_eda_and_modeling.ipynb`](04_mercedes_eda_and_modeling.ipynb) | The project notebook: EDA, H2 limit, baseline, three algorithms, error analysis, Kaggle submission, long tests (Steps 1–29) |
-| [`my_notes/machine_learning_presentation_stakeholder_deck_v6_final.pdf`](my_notes/machine_learning_presentation_stakeholder_deck_v6_final.pdf) | Presentation for a non-technical audience (13 main slides + explanation slides) |
-| [`my_notes/machine_learning_presentation_deck_v10.pdf`](my_notes/machine_learning_presentation_deck_v10.pdf) | Detailed engineering deck with references to the project's internal decision log |
+| [`my_notes/machine_learning_presentation_stakeholder_deck_v7_final.pdf`](my_notes/machine_learning_presentation_stakeholder_deck_v7_final.pdf) | Presentation for a non-technical audience (13 main slides + explanation slides) |
+| [`my_notes/machine_learning_presentation_deck_v11.pdf`](my_notes/machine_learning_presentation_deck_v11.pdf) | Detailed engineering deck with references to the project's internal decision log |
 | `01_assignment.md`, `02_kanban_board.md`, `03_eda-and-modeling.ipynb`, `assets/` | Course material from the neuefische ML project template |
 | `pyproject.toml`, `uv.lock` | Python environment |
 
